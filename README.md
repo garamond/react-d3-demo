@@ -4,4 +4,4 @@ Example project for D3 to React migration
 
 ## Getting started
 
-  npx serve
+  npx live-server
