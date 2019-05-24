@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>D3 Demo</title>
+</head>
+
+<body>
+  <div id="root" />
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script type="text/babel">
+
+    d3.csv('./data.csv').then(data => {
+      const columns = ['Year', 'USA', 'China', 'EU28', 'Andere']
+
+      const table = d3.select('#root').append('table')
+      const thead = table.append('thead')
+      const	tbody = table.append('tbody')
+
+      // append the header row
+      thead.append('tr')
+        .selectAll('th')
+        .data(columns)
+        .enter()
+        .append('th')
+          .text(column => column)
+
+      // create a row for each object in the data
+      const rows = tbody.selectAll('tr')
+        .data(data)
+        .enter()
+        .append('tr')
+
+      // create a cell in each row for each column
+      const cells = rows.selectAll('td')
+        .data(row => columns.map(column =>  ({column: column, value: row[column]})))
+        .enter()
+        .append('td')
+          .text(d => Math.round(d.value))
+      })
+
+  </script>
+
+</body>
+
+</html>

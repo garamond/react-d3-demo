@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>React Demo</title>
+</head>
+
+<body>
+  <div id="root" />
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script type="text/babel">
+
+    	const App = ({data}) => {
+    		return (
+          <table>
+            <thead>
+              <tr>
+                <th>Jahr</th>  
+                <th>USA</th>  
+                <th>China</th>  
+                <th>EU28</th>  
+                <th>Andere</th>  
+              </tr>
+            </thead>
+            <tbody>
+            {
+              data.map(d =>
+                <tr>
+                  <td>{Math.round(d['Year'])}</td>
+                  <td>{Math.round(d['USA'])}</td>
+                  <td>{Math.round(d['China'])}</td>
+                  <td>{Math.round(d['EU28'])}</td>
+                  <td>{Math.round(d['Andere'])}</td>
+                </tr>
+              )
+            }
+            </tbody>
+          </table>
+    		)
+    	}
+	
+      d3.csv('./data.csv').then(data => {
+    		ReactDOM.render(<App data={data} />, document.querySelector('#root'));
+      })
+
+    </script>
+
+</body>
+
+</html>
